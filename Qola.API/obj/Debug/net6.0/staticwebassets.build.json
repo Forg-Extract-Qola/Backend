@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "p4CSMsQpDd0uf/GzH0DPKEhNRA8qbwSNw6LaHo2jmxI=",
+  "Source": "Qola.API",
+  "BasePath": "_content/Qola.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
