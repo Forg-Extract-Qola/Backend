@@ -51,7 +51,7 @@ public class DishController: ControllerBase
         var resources = _mapper.Map<IEnumerable<Dish>, IEnumerable<DishResource>>(dishes);
         return Ok(resources);
     }
-    
+    [AllowAnonymous]
     [HttpGet("{id}")]
     [SwaggerOperation(
         Summary = "Get dish by id",

@@ -29,10 +29,11 @@ public class TableService: ITableService
         return await _tableRepository.FindTablesByRestaurantIdAsync(restaurantId);
     }
 
-    public async Task<IEnumerable<Table>> ListTableIsOccupiedAsync()
+    public async Task<IEnumerable<Table>> ListTableIsOccupiedOfRestaurantAsync(int restaurantId)
     {
-        return await _tableRepository.ListTableIsOccupiedAsync();
+        return await _tableRepository.ListTableIsOccupiedOfRestaurantAsync(restaurantId);
     }
+
 
     public async Task<Table> FindByIdAsync(int id)
     {

@@ -21,7 +21,7 @@ public class RestaurantManagerController: ControllerBase
         _mapper = mapper;
         _restaurantService = restaurantService;
     }
-    
+    [AllowAnonymous]
     [HttpGet]
     [SwaggerOperation(
         Summary = "Get all restaurants By Manager Id",

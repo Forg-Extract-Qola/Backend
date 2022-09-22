@@ -35,16 +35,16 @@ public class OrderService : IOrderService
         return await _orderRepository.FindByWaiterIdAsync(waiterId);
     }
 
-    public async Task<IEnumerable<Order>> FindByTableIdAndStatusAsync(int tableId, string status)
+    public async Task<IEnumerable<Order>> FindByTableIdAndStatusAndRestaurantIdAsync(int tableId, string status, int restaurantId)
     {
-        return await _orderRepository.FindByTableIdAndStatusAsync(tableId, status);
+        return await _orderRepository.FindByTableIdAndStatusAndRestaurantIdAsync(tableId, status, restaurantId);
     }
-
 
     public async Task<IEnumerable<Order>> FindByStatusAndRestaurantIdAsync(string status, int restaurantId)
     {
         return await _orderRepository.FindByStatusAndRestaurantIdAsync(status, restaurantId);
     }
+
 
     public async Task<Order> FindByIdAsync(int id)
     {

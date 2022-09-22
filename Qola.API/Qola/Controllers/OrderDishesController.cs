@@ -27,6 +27,8 @@ public class OrderDishesController : ControllerBase
         _mapper = mapper;
         _dishRepository = dishRepository;
     }
+    
+    [AllowAnonymous]
     [HttpGet("order/{orderId}")]
     [SwaggerOperation(
         Summary = "Get all Dishes for a Order id",
@@ -39,7 +41,7 @@ public class OrderDishesController : ControllerBase
         var resources = _mapper.Map<IEnumerable<Dish>, IEnumerable<DishResource>>(orderDishes);
         return Ok(resources);
     }
-    
+    [AllowAnonymous]
     [HttpGet("restaurant/{restaurantId}")]
     [SwaggerOperation(
         Summary = "Get all OrderDishes",
@@ -52,7 +54,7 @@ public class OrderDishesController : ControllerBase
         var resources = _mapper.Map<IEnumerable<OrderDishes>, IEnumerable<OrderDishesResource>>(orderDishes);
         return Ok(resources);
     }
-    
+    [AllowAnonymous]
     [HttpGet("{id}")]
     [SwaggerOperation(
         Summary = "Get a OrderDishes by Id",
@@ -65,7 +67,7 @@ public class OrderDishesController : ControllerBase
         var resources = _mapper.Map<OrderDishes,OrderDishesResource>(orderDishes);
         return Ok(resources);
     }
-    
+    [AllowAnonymous]
     [HttpPost]
     [SwaggerOperation(
         Summary = "Create a new OrderDishes",
@@ -88,7 +90,7 @@ public class OrderDishesController : ControllerBase
         var orderDishesResource = _mapper.Map<OrderDishes, OrderDishesResource>(result.Resource);
         return Ok(orderDishesResource);
     }
-    
+    [AllowAnonymous]
     [HttpDelete]
     [SwaggerOperation(
         Summary = "Delete a OrderDishes",

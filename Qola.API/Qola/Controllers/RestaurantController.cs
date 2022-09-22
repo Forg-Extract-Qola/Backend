@@ -37,7 +37,7 @@ public class RestaurantController: ControllerBase
         var resources = _mapper.Map<IEnumerable<Restaurant>, IEnumerable<RestaurantResource>>(restaurants);
         return Ok(resources);
     }
-
+    [AllowAnonymous]
     [HttpGet("{id}")]
     [SwaggerOperation(
         Summary = "Get all restaurants By Id",

@@ -22,7 +22,7 @@ public class RestaurantDishController :ControllerBase
         _dishService = dishService;
         _mapper = mapper;
     }
-    
+    [AllowAnonymous]
     [HttpGet]
     [SwaggerOperation(
         Summary = "Get all dish by restaurant id",

@@ -37,7 +37,7 @@ public class OrderController : ControllerBase
         var resources = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderResource>>(orders);
         return Ok(resources);
     }
-    
+    [AllowAnonymous]
     [HttpGet("status/{status}/restaurant/{restaurantId}")]
     [SwaggerOperation(
         Summary = "Get all Orders by Status and Restaurant id",
@@ -50,7 +50,7 @@ public class OrderController : ControllerBase
         var resources = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderResource>>(orders);
         return Ok(resources);
     }
-
+    [AllowAnonymous]
     [HttpGet("{id}")]
     [SwaggerOperation(
         Summary = "Get order by id",

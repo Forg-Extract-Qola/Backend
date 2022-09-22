@@ -21,7 +21,7 @@ public class WaiterOrderController : ControllerBase
         _orderService = orderService;
         _mapper = mapper;
     }
-
+    [AllowAnonymous]
     [HttpGet]
     [SwaggerOperation(
         Summary = "Get all Order by Waiter id",

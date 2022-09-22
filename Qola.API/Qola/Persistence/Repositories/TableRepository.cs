@@ -17,10 +17,11 @@ public class TableRepository : BaseRepository, ITableRepository
         return await _context.Tables.ToListAsync();
     }
 
-    public async Task<IEnumerable<Table>> ListTableIsOccupiedAsync()
+    public async Task<IEnumerable<Table>> ListTableIsOccupiedOfRestaurantAsync(int restaurantId)
     {
-        return await _context.Tables.Where(x => x.IsOccupied == false).ToListAsync();
+        return await _context.Tables.Where(t => t.RestaurantId == restaurantId && t.IsOccupied == false).ToListAsync();
     }
+
 
     public async Task<IEnumerable<Table>> FindTablesByRestaurantIdAsync(int restaurantId)
     {

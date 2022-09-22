@@ -24,7 +24,6 @@ public class CookController: ControllerBase
         _cookService = cookService;
         _mapper = mapper;
     }
-    
     [HttpGet]
     [SwaggerOperation(
         Summary = "Get all Cooks",
@@ -37,7 +36,7 @@ public class CookController: ControllerBase
         var resources = _mapper.Map<IEnumerable<Cook>, IEnumerable<CookResource>>(cook);
         return Ok(resources);
     }
-    
+    [AllowAnonymous]
     [HttpGet("{id}")]
     [SwaggerOperation(
         Summary = "Get cook by id",

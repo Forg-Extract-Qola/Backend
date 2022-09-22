@@ -38,21 +38,21 @@ public class TableController: ControllerBase
         var resources = _mapper.Map<IEnumerable<Table>, IEnumerable<TableResource>>(tables);
         return Ok(resources);
     }
-    
-    [HttpGet("available")]
+    [AllowAnonymous]
+    [HttpGet("available/{restaurantId}")]
     [SwaggerOperation(
-        Summary = "Get all tables that are unoccupied",
-        Description = "Get all existing tables that are unoccupied",
-        OperationId = "GetAllAvailableTables",
+        Summary = "Get all tables that are unoccupied by restaurant id",
+        Description = "Get all existing tables that are unoccupied by restaurant id",
+        OperationId = "GetAllAvailableTablesByRestaurantId",
         Tags = new[] {"Table"})]
-    public async Task<IActionResult> GetAllAvailableAsync()
+    public async Task<IActionResult> GetAllAvailableByRestaurantIdAsync(int restaurantId)
     {
-        var tables = await _tableService.ListTableIsOccupiedAsync();
+        var tables = await _tableService.ListTableIsOccupiedOfRestaurantAsync(restaurantId);
         var resources = _mapper.Map<IEnumerable<Table>, IEnumerable<TableResource>>(tables);
         return Ok(resources);
     }
-   
-    
+
+    [AllowAnonymous]
     [HttpGet("{id}")]
     [SwaggerOperation(
         Summary = "Get table by id",

@@ -22,10 +22,11 @@ public class OrderRepository : BaseRepository, IOrderRepository
         return await _context.Orders.Where(o => o.WaiterId == waiterId).ToListAsync();
     }
 
-    public async Task<IEnumerable<Order>> FindByTableIdAndStatusAsync(int tableId, string status)
+    public async Task<IEnumerable<Order>> FindByTableIdAndStatusAndRestaurantIdAsync(int tableId, string status, int restaurantId)
     {
-        return await _context.Orders.Where(o => o.TableId == tableId && o.Status == status).ToListAsync();
+        return await _context.Orders.Where(o => o.TableId == tableId && o.Status == status && o.RestaurantId == restaurantId).ToListAsync();
     }
+
 
     public async Task<IEnumerable<Order>> FindByStatusAndRestaurantIdAsync(string status, int restaurantId)
     {

@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Qola.API.Qola.Controllers;
 [Authorize]
 [ApiController]
-[Route("api/v1/table/order/{tableId}/status/{status}")]
+[Route("api/v1/table/order/{tableId}/status/{status}/restaurant/{restaurantId}")]
 [Produces("application/json")]
 public class TableOrderController : ControllerBase
 {
@@ -21,16 +21,16 @@ public class TableOrderController : ControllerBase
         _orderService = orderService;
         _mapper = mapper;
     }
-    
+    [AllowAnonymous]
     [HttpGet]
     [SwaggerOperation(
-        Summary = "Get all Order by Table id and Order Status",
-        Description = "Get all existing Order by Table id and Order Status",
-        OperationId = "GetAllOrderByTableIdAndOrderStatus",
+        Summary = "Get all Order by Table id and Order Status and Restaurant Id",
+        Description = "Get all existing Order by Table id and Order Status and Restaurant Id",
+        OperationId = "GetAllOrderByTableIdAndOrderStatusAndRestaurantId",
         Tags = new[] {"Table"})]
-    public async Task<IActionResult> FindByTableId(int tableId, string status)
+    public async Task<IActionResult> FindByTableId(int tableId, string status, int restaurantId)
     {
-        var orders = await _orderService.FindByTableIdAndStatusAsync(tableId, status);
+        var orders = await _orderService.FindByTableIdAndStatusAndRestaurantIdAsync(tableId, status, restaurantId);
         var resources = _mapper.Map<IEnumerable<Order>, IEnumerable<OrderResource>>(orders);
         return Ok(resources);
     }

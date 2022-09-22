@@ -7,7 +7,7 @@ public interface ITableService
 {
     Task<IEnumerable<Table>> ListAsync();
     Task<IEnumerable<Table>> FindTablesByRestaurantIdAsync(int restaurantId);
-    Task<IEnumerable<Table>> ListTableIsOccupiedAsync();
+    Task<IEnumerable<Table>> ListTableIsOccupiedOfRestaurantAsync(int restaurantId);
     Task<Table> FindByIdAsync(int id);
     Task<TableResponse> SaveAsync(Table table, int restaurantId);
     Task<TableResponse> UpdateAsync(int id, Table table);

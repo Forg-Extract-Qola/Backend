@@ -22,7 +22,7 @@ public class RestaurantTable: ControllerBase
         _tableService = tableService;
         _mapper = mapper;
     }
-    
+    [AllowAnonymous]
     [HttpGet]
     [SwaggerOperation(
         Summary = "Get all table By restaurant Id",

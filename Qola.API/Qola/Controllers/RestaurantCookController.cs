@@ -23,7 +23,7 @@ public class RestaurantCookController : ControllerBase
         _cookService = cookService;
         _mapper = mapper;
     }
-
+    [AllowAnonymous]
     [HttpGet]
     [SwaggerOperation(
         Summary = "Get all cooks by restaurant id",
