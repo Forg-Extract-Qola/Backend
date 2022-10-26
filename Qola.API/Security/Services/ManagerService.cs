@@ -36,6 +36,13 @@ public class ManagerService : IManagerService
         }
         var response = _mapper.Map<AuthenticateResponse>(user);
         response.Token = _jwtHandler.GenerateToken(user);
+        if (!user.RestaurantId.Equals(null))
+        {
+            response.RestaurantId = user.RestaurantId;
+        }else
+        {
+            response.RestaurantId = 0;
+        }
         return response;
     }
 

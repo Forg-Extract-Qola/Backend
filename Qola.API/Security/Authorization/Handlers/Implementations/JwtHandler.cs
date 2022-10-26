@@ -23,7 +23,7 @@ public class JwtHandler: IJwtHandler
         Console.WriteLine($"Secret: {_appSettings.Secret}");
         var secret = _appSettings.Secret;
         var key = Encoding.ASCII.GetBytes(secret);
-        Console.WriteLine($"Scaler Id: {manager.Id.ToString()}");
+        Console.WriteLine($"Manager Id: {manager.Id.ToString()}");
         var TokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new Claim[]

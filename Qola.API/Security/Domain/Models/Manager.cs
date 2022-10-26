@@ -10,8 +10,6 @@ public class Manager
     [JsonIgnore] 
     public string PasswordHash { get; set; }
     public string Email { get; set; }
-    
     public Restaurant Restaurant { get; set; }
-    
     public int RestaurantId { get; set; }
 }

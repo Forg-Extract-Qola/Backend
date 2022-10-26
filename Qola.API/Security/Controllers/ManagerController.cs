@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-
 using Microsoft.AspNetCore.Mvc;
 using Qola.API.Security.Authorization.Attributes;
 using Qola.API.Security.Domain.Models;
