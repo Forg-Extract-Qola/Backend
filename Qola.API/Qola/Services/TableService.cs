@@ -34,6 +34,11 @@ public class TableService: ITableService
         return await _tableRepository.ListTableIsOccupiedOfRestaurantAsync(restaurantId);
     }
 
+    public async Task<IEnumerable<Table>> ListTableIsOccupiedTrueOfRestaurantAsync(int restaurantId)
+    {
+        return await _tableRepository.ListTableIsOccupiedTrueOfRestaurantAsync(restaurantId);
+    }
+
 
     public async Task<Table> FindByIdAsync(int id)
     {

@@ -51,6 +51,20 @@ public class TableController: ControllerBase
         var resources = _mapper.Map<IEnumerable<Table>, IEnumerable<TableResource>>(tables);
         return Ok(resources);
     }
+    
+    [AllowAnonymous]
+    [HttpGet("not-available/{restaurantId}")]
+    [SwaggerOperation(
+        Summary = "Get all tables that are occupied by restaurant id",
+        Description = "Get all existing tables that are occupied by restaurant id",
+        OperationId = "GetAllNotAvailableTablesByRestaurantId",
+        Tags = new[] {"Table"})]
+    public async Task<IActionResult> GetAllNotAvailableByRestaurantIdAsync(int restaurantId)
+    {
+        var tables = await _tableService.ListTableIsOccupiedTrueOfRestaurantAsync(restaurantId);
+        var resources = _mapper.Map<IEnumerable<Table>, IEnumerable<TableResource>>(tables);
+        return Ok(resources);
+    }
 
     [AllowAnonymous]
     [HttpGet("{id}")]
