@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Qola.API.Qola.Domain.Repositories;
 using Qola.API.Security.Authorization.Handlers.Interfaces;
 using Qola.API.Security.Domain.Models;
 using Qola.API.Security.Domain.Repositories;
@@ -14,16 +15,18 @@ public class ManagerService : IManagerService
 {
     
     private readonly IManagerRepository _managerRepository;
+    private readonly IRestaurantRepository _restaurantRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IJwtHandler _jwtHandler;
     private readonly IMapper _mapper;
 
-    public ManagerService(IManagerRepository managerRepository, IUnitOfWork unitOfWork, IJwtHandler jwtHandler, IMapper mapper)
+    public ManagerService(IManagerRepository managerRepository, IUnitOfWork unitOfWork, IJwtHandler jwtHandler, IMapper mapper, IRestaurantRepository restaurantRepository)
     {
         _managerRepository = managerRepository;
         _unitOfWork = unitOfWork;
         _jwtHandler = jwtHandler;
         _mapper = mapper;
+        _restaurantRepository = restaurantRepository;
     }
 
     public async Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request)
@@ -34,9 +37,17 @@ public class ManagerService : IManagerService
         {
             throw new AppExceptions("Invalid credentials");
         }
+        var restaurant = await _restaurantRepository.FindRestaurantByManagerAsync(user.Id);
         var response = _mapper.Map<AuthenticateResponse>(user);
         response.Token = _jwtHandler.GenerateToken(user);
-        response.RestaurantId = user.RestaurantId;
+        if (!restaurant.Equals(null))
+        {
+            response.RestaurantId = restaurant.Id;
+        }
+        else
+        {
+            response.RestaurantId = 0;
+        }
         return response;
     }
 
