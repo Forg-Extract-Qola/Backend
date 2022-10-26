@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Qola.API.Qola.Domain.Repositories;
+using Qola.API.Qola.Domain.Services;
 using Qola.API.Security.Authorization.Handlers.Interfaces;
 using Qola.API.Security.Domain.Models;
 using Qola.API.Security.Domain.Repositories;
@@ -15,40 +16,51 @@ public class ManagerService : IManagerService
 {
     
     private readonly IManagerRepository _managerRepository;
-    private readonly IRestaurantRepository _restaurantRepository;
+    private readonly IRestaurantService _restaurantService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IJwtHandler _jwtHandler;
     private readonly IMapper _mapper;
 
-    public ManagerService(IManagerRepository managerRepository, IUnitOfWork unitOfWork, IJwtHandler jwtHandler, IMapper mapper, IRestaurantRepository restaurantRepository)
+    public ManagerService(IManagerRepository managerRepository, IUnitOfWork unitOfWork, IJwtHandler jwtHandler, IMapper mapper, IRestaurantService restaurantService)
     {
         _managerRepository = managerRepository;
         _unitOfWork = unitOfWork;
         _jwtHandler = jwtHandler;
         _mapper = mapper;
-        _restaurantRepository = restaurantRepository;
+        _restaurantService = restaurantService;
     }
 
     public async Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request)
     {
-        var user = await _managerRepository.FindByEmailAsync(request.Email);
-        //Valite
-        if (user.Equals(null) || !BCryptNet.Verify(request.Password, user.PasswordHash))
+
+        try
         {
-            throw new AppExceptions("Invalid credentials");
+            var user = await _managerRepository.FindByEmailAsync(request.Email);
+            //Valite
+            if (user.Equals(null) || !BCryptNet.Verify(request.Password, user.PasswordHash))
+            {
+                throw new AppExceptions("Invalid credentials");
+            }
+            var restaurant = await _restaurantService.FindRestaurantByManagerById(user.Id);
+        
+            var response = _mapper.Map<AuthenticateResponse>(user);
+            response.Token = _jwtHandler.GenerateToken(user);
+            if (!(restaurant==null))
+            {
+                response.RestaurantId = restaurant.Id;
+            }
+            else
+            {
+                response.RestaurantId = 0;
+            }
+            return response;
         }
-        var restaurant = await _restaurantRepository.FindRestaurantByManagerAsync(user.Id);
-        var response = _mapper.Map<AuthenticateResponse>(user);
-        response.Token = _jwtHandler.GenerateToken(user);
-        if (!restaurant.Equals(null))
+        catch (Exception e)
         {
-            response.RestaurantId = restaurant.Id;
+            Console.WriteLine(e);
+            throw;
         }
-        else
-        {
-            response.RestaurantId = 0;
-        }
-        return response;
+
     }
 
     public async Task<IEnumerable<Manager>> ListAsync()

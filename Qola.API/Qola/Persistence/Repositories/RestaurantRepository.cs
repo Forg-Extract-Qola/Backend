@@ -23,6 +23,11 @@ public class RestaurantRepository : BaseRepository, IRestaurantRepository
         return (await _context.Restaurants.Where(r => r.ManagerId == managerId).FirstOrDefaultAsync())!;
     }
 
+    public async Task<Restaurant> FindRestaurantByManagerById(int managerId)
+    {
+        return (await _context.Restaurants.Where(r => r.ManagerId == managerId).FirstOrDefaultAsync())!;
+    }
+
     public async Task<Restaurant> FindByIdAsync(int id)
     {
         return (await _context.Restaurants.FindAsync(id))!;
