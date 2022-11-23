@@ -69,6 +69,7 @@ public class DishService : IDishService
         }
         existingDish.Name = dish.Name;
         existingDish.Description = dish.Description;
+        existingDish.Image = dish.Image;
         existingDish.Price = dish.Price;
         existingDish.Category_dish = dish.Category_dish;
         try
